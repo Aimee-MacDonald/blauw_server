@@ -8,7 +8,11 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', socket => {
-  console.log('Socket Connection!')
+  socket.on('test', msg => {
+    console.log('Message Recieved')
+    console.log(msg)
+    socket.emit('test', 'It works!')
+  })
 })
 
 server.listen(8080, () => console.log('Server Started Up,\nListening on Port: 8080'))
