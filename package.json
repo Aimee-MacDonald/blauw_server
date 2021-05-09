@@ -1,0 +1,16 @@
+{
+  "name": "blauw_server",
+  "version": "1.0.0",
+  "description": "Server Component to the BLAUW!! Suite",
+  "main": "server.js",
+  "repository": "https://github.com/Aimee-MacDonald/blauw_server.git",
+  "author": "Aimee MacDonald <aimeelmacdonald@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.0.1"
+  }
+}
