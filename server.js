@@ -8,10 +8,11 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', socket => {
-  socket.on('test', msg => {
-    console.log('Message Recieved')
-    console.log(msg)
-    socket.emit('test', 'It works!')
+  socket.on('bookings', action => {
+    console.log('Something about bookings?')
+    console.log(action)
+
+    socket.emit('bookings', action)
   })
 })
 
