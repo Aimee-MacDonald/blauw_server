@@ -22,16 +22,19 @@ io.on('connection', socket => {
         })
 
         newBooking.save(error => {if(error) console.log(error)})
-    }
 
-    /*
-    socket.emit('dispatchAction', createBooking({
-      name: 'Charlene',
-      date: 2,
-      room: 2,
-      nights: 2
-    }))
-    */
+      case 'DELETE_BOOKING':
+        Booking.findByIdAndRemove(payload, error => {if(error) console.log(error)})
+
+      case 'REFRESH_BOOKINGS':
+        const bookings = Booking.find({}, (error, result) => {
+          if(error){
+            console.log(error)
+          } else {
+            result.forEach(booking => socket.emit('dispatchAction', createBooking(booking)))
+          }
+        })
+    }
   })
 })
 
