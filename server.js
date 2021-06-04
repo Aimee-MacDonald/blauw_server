@@ -14,9 +14,9 @@ io.on('connection', socket => {
     switch(type){
       case 'CREATE_BOOKING':
         const newBooking = new Booking({
-          _id: payload.id,
-          booking_name: payload.name,
-          checkin_date: payload.date,
+          _id: payload._id,
+          booking_name: payload.booking_name,
+          checkin_date: payload.checkin_date,
           room: payload.room,
           nights: payload.nights
         })
