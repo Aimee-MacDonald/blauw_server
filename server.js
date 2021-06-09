@@ -25,7 +25,11 @@ io.on('connection', socket => {
         break
 
       case 'DELETE_BOOKING':
-        Booking.findByIdAndRemove(payload, error => {if(error) console.log(error)})
+        Booking.deleteOne({_id: payload}, error => {if(error) console.log(error)})
+        break
+
+      case 'UPDATE_BOOKING':
+        Booking.updateOne({_id: payload._id}, {...payload}, error => {if(error) console.log(error)})
         break
 
       case 'REFRESH_BOOKINGS':
@@ -36,7 +40,6 @@ io.on('connection', socket => {
             result.forEach(booking => socket.emit('dispatchAction', createBooking(booking)))
           }
         })
-
         break
     }
   })
