@@ -43,6 +43,13 @@ io.on('connection', socket => {
           }
         })
         break
+
+      case 'CHECKIN_BOOKING':
+        Booking.updateOne({_id: payload}, {
+          status: 'checked_in',
+          checked_in: true
+        }, error => {if(error) console.log(error)})
+        break
     }
   })
 })
