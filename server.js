@@ -18,7 +18,9 @@ io.on('connection', socket => {
           booking_name: payload.booking_name,
           checkin_date: payload.checkin_date,
           room: payload.room,
-          nights: payload.nights
+          nights: payload.nights,
+          status: payload.status,
+          checked_in: payload.checked_in
         })
 
         newBooking.save(error => {if(error) console.log(error)})
