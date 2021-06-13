@@ -50,6 +50,13 @@ io.on('connection', socket => {
           checked_in: true
         }, error => {if(error) console.log(error)})
         break
+
+      case 'CHECKOUT_BOOKING':
+        Booking.updateOne({_id: payload}, {
+          status: 'checked_out',
+          checked_in: false
+        }, error => {if(error) console.log(error)})
+        break
     }
   })
 })
