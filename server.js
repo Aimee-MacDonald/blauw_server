@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 
 const {createBooking} = require(path.join(__dirname, 'state_management/actions/bookings'))
 const Booking = require(path.join(__dirname, 'dbmodels/Booking.js'))
+const Room = require(path.join(__dirname, 'dbmodels/Room.js'))
 
 mongoose.connect('mongodb://localhost/blauw', {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -64,6 +65,24 @@ io.on('connection', socket => {
           checked_in: true
         }, error => {if(error) console.log(error)})
         break
+    }
+  })
+
+  socket.on('rooms', ({type, payload}) => {
+    switch(type){
+      case 'CREATE_ROOM':
+        const newRoom = new Room(payload)
+        newRoom.save(error => {if(error) console.log(error)})
+        break
+      
+      case 'DELETE_ROOM':
+        console.log('Delete Room')
+        console.log(payload)
+        break
+
+      case 'UPDATE_ROOM':
+        console.log('Update Room')
+        console.log(payload)
     }
   })
 })
