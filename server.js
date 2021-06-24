@@ -5,6 +5,8 @@ const path = require('path')
 const mongoose = require('mongoose')
 
 const {createBooking} = require(path.join(__dirname, 'state_management/actions/bookings'))
+const {createRoom} = require(path.join(__dirname, 'state_management/actions/rooms'))
+
 const Booking = require(path.join(__dirname, 'dbmodels/Booking.js'))
 const Room = require(path.join(__dirname, 'dbmodels/Room.js'))
 
@@ -83,6 +85,15 @@ io.on('connection', socket => {
       case 'UPDATE_ROOM':
         console.log('Update Room')
         console.log(payload)
+
+      case 'REFRESH_ROOMS':
+        Room.find({}, (error, result) => {
+          if(error){
+            console.log(error)
+          } else {
+            result.forEach(room => socket.emit('dispatchAction', createRoom(room)))
+          }
+        })
     }
   })
 })
