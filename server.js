@@ -1,6 +1,17 @@
-const app = require('express')()
-const server = require('http').createServer(app)
+const http = require('http')
+const express = require('express')
+const app = express()
+
+const server = http.createServer(app)
 const io = require('socket.io')(server)
+
+server.listen(8080, () => console.log('Server listening on Port: 8080'))
+
+app.get('/', (req, res) => {
+  console.log('Home Connection')
+  res.send('<h1>Home</h1>')
+})
+
 const path = require('path')
 const mongoose = require('mongoose')
 
@@ -97,5 +108,3 @@ io.on('connection', socket => {
     }
   })
 })
-
-server.listen(8080, () => console.log('Server Started Up,\nListening on Port: 8080'))
